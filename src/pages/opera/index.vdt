@@ -1,0 +1,12 @@
+import {Card} from 'kpc/components/card';
+
+<div class="opera-container">
+    <Card
+        v-for={{ self.get('Demos') }}
+        v-for-value="Demo"
+        title={{ Demo.data.title }}
+        class={{ `example index-${Demo.index}` }}
+    >
+        <Demo.Demo /> 
+    </Card>
+</div>

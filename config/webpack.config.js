@@ -1,6 +1,7 @@
 const Path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const resolve = (path) => Path.resolve(__dirname, path);
 
@@ -11,7 +12,7 @@ module.exports = {
     },
     output: {
         path: resolve('../dist'),
-        filename: 'static/js/[name].[hash].js',
+        filename: 'static/js/[name].js',
         chunkFilename: 'static/js/[name].[hash].js',
     },
     devtool: '#inline-source-map',
@@ -58,6 +59,11 @@ module.exports = {
                 ]
             },
             {
+                test: /\/kpc\/.*index\.styl$/,
+                include: resolve('../node_modules/kpc/'),
+                use: 'null-loader',
+            },
+            {
                 test: /\.styl$/,
                 use: [
                     {
@@ -75,7 +81,7 @@ module.exports = {
                             'include css': true,
                             'resolve url': true,
                             sourceMap: false,
-                            'import': resolve('../src/theme/index.styl'),
+                            // 'import': resolve('../src/theme/index.styl'),
                         }
                     }
                 ]
@@ -108,15 +114,18 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            inject: true,
-            template: resolve('../public/index.html'),
-        }),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new MonacoWebpackPlugin(),
+        // new HtmlWebpackPlugin({
+            // inject: true,
+            // template: resolve('../public/index.html'),
+        // }),
     ],
-    devServer: {
-        port: 5678,
-        hot: true,
-    },
+    // devServer: {
+        // port: 5678,
+        // hot: true,
+    // },
     watchOptions: {
         ignored: /node_modules/
     }

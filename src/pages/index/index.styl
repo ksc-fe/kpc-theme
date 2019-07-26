@@ -5,16 +5,21 @@ $headerHeight = 48px
 html
     background #f1f1f5
 
+.k-app
+    height 100%
+    display flex
 .k-layout
+    height 100%
     > .k-header
-        background #fff
-        height $headerHeight 
-        box-shadow $box-shadow
+        // background #fff
+        color #fff
+        // height $headerHeight 
+        // box-shadow $box-shadow
         // border-bottom 1px solid #f2f2f2 
     > .k-layout
-        padding-top $headerHeight !important
+        // padding-top $headerHeight !important
         > .k-aside
-            padding-top $headerHeight !important
+            // padding-top $headerHeight !important
             box-shadow $box-shadow
     .k-menu
         background #fff
@@ -28,8 +33,8 @@ html
         width 100%
 .logo
     width 160px
-    height $headerHeight 
-    line-height @height
+    // height $headerHeight 
+    // line-height @height
     text-align center
     float left
     margin 0 20px
@@ -38,6 +43,29 @@ html
         vertical-align middle
         width 30px
         margin-right 8px
-.example
-    margin 16px
-    background #fff
+.k-split 
+    > .k-first
+        overflow hidden
+    > .k-last
+        background #fff
+        padding 16px
+        display flex
+        flex-direction column 
+        .k-collapse
+            flex 1
+        .footer
+            text-align right
+            padding-top 16px
+            border-top 1px solid $border-color
+            margin-top 16px
+.k-collapse
+    overflow-y auto
+    overflow-x hidden
+.k-collapse-item
+    > .k-content
+        > .k-wrapper
+            padding 0
+iframe
+    width 100%
+    height 100%
+    border none

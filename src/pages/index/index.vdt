@@ -3,7 +3,10 @@ import {Menu, MenuItem} from 'kpc/components/menu';
 import Icon from 'kpc/components/icon';
 import {Breadcrumb, BreadcrumbItem} from 'kpc/components/breadcrumb';
 import logo from '@/images/logo.png';
-import {Card} from 'kpc/components/card';
+import {Split} from 'kpc/components/split';
+import {Collapse, CollapseItem} from 'kpc/components/collapse';
+import Code from 'kpc/components/code';
+import Button from 'kpc/components/button';
 
 <Layout class="layout">
     <Header fixed>
@@ -28,15 +31,24 @@ import {Card} from 'kpc/components/card';
             </Menu>
         </Aside>
         <Body>
-            <Card
-                v-for={{ self.get('Demos') }}
-                v-for-value="Demo"
-                title={{ Demo.data.title }}
-                type="border"
-                class={{ `example index-${Demo.index}` }}
-            >
-                <Demo.Demo /> 
-            </Card>
+            <Split v-model:lastSize="lastSize">
+                <b:first>
+                    <iframe src={{ `#/opera/${self.get('name')}` }}></iframe>
+                </b:first>
+                <b:last>
+                    <Collapse v-model="collapseValue" noBorder>
+                        <CollapseItem title="Stylus 变量">
+                            
+                        </CollapseItem>
+                        <CollapseItem title="附加样式">
+                            <Code v-model="code" height="300px" language="css" /> 
+                        </CollapseItem>
+                    </Collapse>
+                    <div class="footer">
+                        <Button type="primary">保存</Button>
+                    </div>
+                </b:last>
+            </Split>
         </Body>
     </Layout>
 </Layout>

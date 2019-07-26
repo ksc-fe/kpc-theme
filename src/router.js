@@ -16,5 +16,14 @@ export default new Router([
                 data: context.params,
             }
         }
-    }
+    },
+    {
+        path: '/opera/:name',
+        async action(context) {
+            return {
+                Page: (await import('./pages/opera')).default,
+                data: context.params,
+            }
+        }
+    },
 ]);

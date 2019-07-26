@@ -1,6 +1,7 @@
 import App from 'kpc/components/app';
 import router from './router';
 import {createBrowserHistory} from 'history';
+import '@/all.styl';
 
 const history = createBrowserHistory();
 const app = new App({container: document.getElementById('app')});
@@ -19,7 +20,7 @@ function init(router) {
 init(router);
 
 if (module.hot) {
-    module.hot.accept('./pages/index', () => {
+    module.hot.accept('./router', () => {
         const router = require('./router').default;
         init(router);
     });
