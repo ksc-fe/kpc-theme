@@ -1,0 +1,43 @@
+@require('~kpc/styles/themes/default.styl')
+
+$headerHeight = 48px
+
+html
+    background #f1f1f5
+
+.k-layout
+    > .k-header
+        background #fff
+        height $headerHeight 
+        box-shadow $box-shadow
+        // border-bottom 1px solid #f2f2f2 
+    > .k-layout
+        padding-top $headerHeight !important
+        > .k-aside
+            padding-top $headerHeight !important
+            box-shadow $box-shadow
+    .k-menu
+        background #fff
+        .k-menu
+            background #fff
+        .cn-name
+            margin-left 8px
+            font-size 12px
+    > .k-body
+        margin 0
+        width 100%
+.logo
+    width 160px
+    height $headerHeight 
+    line-height @height
+    text-align center
+    float left
+    margin 0 20px
+    font-weight bold
+    img
+        vertical-align middle
+        width 30px
+        margin-right 8px
+.example
+    margin 16px
+    background #fff

@@ -1,0 +1,42 @@
+import {Layout, Header, Aside, Body, Footer} from 'kpc/components/layout';
+import {Menu, MenuItem} from 'kpc/components/menu';
+import Icon from 'kpc/components/icon';
+import {Breadcrumb, BreadcrumbItem} from 'kpc/components/breadcrumb';
+import logo from '@/images/logo.png';
+import {Card} from 'kpc/components/card';
+
+<Layout class="layout">
+    <Header fixed>
+        <div class="logo">
+            <img src={{ logo }} />
+            KPC主题定制工具
+        </div>
+    </Header>
+    <Layout>
+        <Aside fixed>
+            <Menu
+                selectedKey={{ self.get('name') }}
+                theme="light"
+            >
+                <MenuItem v-for={{ self.get('components') }}
+                    key={{ value.name }}
+                    to={{ `#/components/${value.name}` }}
+                >
+                    {{ value.name }}
+                    <span class="cn-name">{{ value.title }}</span>
+                </MenuItem>
+            </Menu>
+        </Aside>
+        <Body>
+            <Card
+                v-for={{ self.get('Demos') }}
+                v-for-value="Demo"
+                title={{ Demo.data.title }}
+                type="border"
+                class={{ `example index-${Demo.index}` }}
+            >
+                <Demo.Demo /> 
+            </Card>
+        </Body>
+    </Layout>
+</Layout>
