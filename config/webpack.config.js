@@ -117,15 +117,18 @@ module.exports = {
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new MonacoWebpackPlugin(),
-        // new HtmlWebpackPlugin({
-            // inject: true,
-            // template: resolve('../public/index.html'),
-        // }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: resolve('../public/index.html'),
+        }),
     ],
-    // devServer: {
-        // port: 5678,
-        // hot: true,
-    // },
+    devServer: {
+        port: 5678,
+        hot: true,
+        proxy: {
+            '/api': 'http://localhost:8586'
+        }
+    },
     watchOptions: {
         ignored: /node_modules/
     }

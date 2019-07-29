@@ -61,10 +61,20 @@ html
 .k-collapse
     overflow-y auto
     overflow-x hidden
-.k-collapse-item
+.code-panel
     > .k-content
         > .k-wrapper
             padding 0
+.variables-panel
+    .k-form-item
+        > .k-label
+            line-height inherit 
+        > .k-append
+            width 80px
+            .k-btn:first-of-type
+                margin-right 8px
+        &:not(:last-of-type)
+            margin-bottom 8px
 iframe
     width 100%
     height 100%

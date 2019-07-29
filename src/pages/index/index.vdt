@@ -7,6 +7,9 @@ import {Split} from 'kpc/components/split';
 import {Collapse, CollapseItem} from 'kpc/components/collapse';
 import Code from 'kpc/components/code';
 import Button from 'kpc/components/button';
+import {Form, FormItem} from 'kpc/components/form';
+import {Select, Option} from 'kpc/components/select';
+import {Input} from 'kpc/components/input';
 
 <Layout class="layout">
     <Header fixed>
@@ -37,15 +40,50 @@ import Button from 'kpc/components/button';
                 </b:first>
                 <b:last>
                     <Collapse v-model="collapseValue" noBorder>
-                        <CollapseItem title="Stylus 变量">
-                            
+                        <CollapseItem title="Stylus 变量" class="variables-panel">
+                            <Form labelWidth="200">
+                                <FormItem fluid v-for={{ self.get('variables') }}>
+                                    <b:label>
+                                        <Select filterable fluid size="small"
+                                            v-model={{ `variables.${key}.name` }}
+                                            allowUnmatch
+                                        >
+                                            <Option 
+                                                v-for={{ 
+                                                    _.omit(
+                                                        self.get('availableVariables'),
+                                                        _.map(self.get('variables'), item => item.name)
+                                                    ) 
+                                                }}
+                                                value={{ key }}
+                                            >{{ key }}</Option>
+                                        </Select>
+                                    </b:label>
+                                    <Input placeholder={{ self.get('availableVariables')[value.name] }} 
+                                        fluid size="small" 
+                                        v-model={{ `variables.${key}.value` }}
+                                    />
+                                    <b:append>
+                                        <Button icon circle size="mini"
+                                            ev-click={{ self._addVariable.bind(self, key) }}
+                                        >
+                                            <Icon class="ion-ios-plus-empty" />
+                                        </Button>
+                                        <Button icon circle size="mini"
+                                            ev-click={{ self._removeVariable.bind(self, key) }}
+                                        >
+                                            <Icon class="ion-ios-minus-empty" />
+                                        </Button>
+                                    </b:append>
+                                </FormItem>
+                            </Form>
                         </CollapseItem>
-                        <CollapseItem title="附加样式">
+                        <CollapseItem title="附加样式" class="code-panel">
                             <Code v-model="code" height="300px" language="css" /> 
                         </CollapseItem>
                     </Collapse>
                     <div class="footer">
-                        <Button type="primary">保存</Button>
+                        <Button type="primary" ev-click={{ self._save }}>保存</Button>
                     </div>
                 </b:last>
             </Split>

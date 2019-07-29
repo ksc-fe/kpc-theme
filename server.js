@@ -12,26 +12,26 @@ const app = Advanced(function(app) {
     app.set('view engine', 'vdt');
     Vdt.configure('delimiters', ['{{', '}}']);
 
-    const webpack = require('webpack');
-    const webpackConfig = require('./config/webpack.config');
-    const webpackDevMiddleware = require('webpack-dev-middleware');
-    const webpackHotMiddleware = require('webpack-hot-middleware');
-    webpackConfig.entry = Object.keys(webpackConfig.entry).reduce((acc, key) => {
-        acc[key] = [
-            'webpack-hot-middleware/client?reload=true',
-            webpackConfig.entry[key],
-        ];
-        return acc;
-    }, {});
-    const compiler = webpack(webpackConfig);
+    // const webpack = require('webpack');
+    // const webpackConfig = require('./config/webpack.config');
+    // const webpackDevMiddleware = require('webpack-dev-middleware');
+    // const webpackHotMiddleware = require('webpack-hot-middleware');
+    // webpackConfig.entry = Object.keys(webpackConfig.entry).reduce((acc, key) => {
+        // acc[key] = [
+            // 'webpack-hot-middleware/client?reload=true',
+            // webpackConfig.entry[key],
+        // ];
+        // return acc;
+    // }, {});
+    // const compiler = webpack(webpackConfig);
 
-    app.use(webpackDevMiddleware(compiler, {
-        publicPath: '/',
-        stats: {
-            colors: true
-        }
-    }));
-    app.use(webpackHotMiddleware(compiler));
+    // app.use(webpackDevMiddleware(compiler, {
+        // publicPath: '/',
+        // stats: {
+            // colors: true
+        // }
+    // }));
+    // app.use(webpackHotMiddleware(compiler));
 });
 
 app.listen(Utils.c('port'), function() {
