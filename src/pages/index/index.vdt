@@ -5,11 +5,13 @@ import {Breadcrumb, BreadcrumbItem} from 'kpc/components/breadcrumb';
 import logo from '@/images/logo.png';
 import {Split} from 'kpc/components/split';
 import {Collapse, CollapseItem} from 'kpc/components/collapse';
-import Code from 'kpc/components/code';
 import Button from 'kpc/components/button';
 import {Form, FormItem} from 'kpc/components/form';
 import {Select, Option} from 'kpc/components/select';
 import {Input} from 'kpc/components/input';
+import {Tooltip} from 'kpc/components/tooltip';
+import {Tabs, Tab} from 'kpc/components/tabs';
+import StylusEditor from '@/components/stylusEditor';
 
 <Layout class="layout">
     <Header fixed>
@@ -21,12 +23,12 @@ import {Input} from 'kpc/components/input';
     <Layout>
         <Aside fixed>
             <Menu
-                selectedKey={{ self.get('name') }}
+                selectedKey={{ self.get('component') }}
                 theme="light"
             >
                 <MenuItem v-for={{ self.get('components') }}
                     key={{ value.name }}
-                    to={{ `#/components/${value.name}` }}
+                    ev-click={{ () => self.set('component', value.name) }}
                 >
                     {{ value.name }}
                     <span class="cn-name">{{ value.title }}</span>
@@ -36,52 +38,27 @@ import {Input} from 'kpc/components/input';
         <Body>
             <Split v-model:lastSize="lastSize">
                 <b:first>
-                    <iframe src={{ `#/opera/${self.get('name')}` }}></iframe>
+                    <iframe src={{ `#/opera/${self.get('component')}` }}></iframe>
                 </b:first>
                 <b:last>
-                    <Collapse v-model="collapseValue" noBorder>
-                        <CollapseItem title="Stylus 变量" class="variables-panel">
-                            <Form labelWidth="200">
-                                <FormItem fluid v-for={{ self.get('variables') }}>
-                                    <b:label>
-                                        <Select filterable fluid size="small"
-                                            v-model={{ `variables.${key}.name` }}
-                                            allowUnmatch
-                                        >
-                                            <Option 
-                                                v-for={{ 
-                                                    _.omit(
-                                                        self.get('availableVariables'),
-                                                        _.map(self.get('variables'), item => item.name)
-                                                    ) 
-                                                }}
-                                                value={{ key }}
-                                            >{{ key }}</Option>
-                                        </Select>
-                                    </b:label>
-                                    <Input placeholder={{ self.get('availableVariables')[value.name] }} 
-                                        fluid size="small" 
-                                        v-model={{ `variables.${key}.value` }}
-                                    />
-                                    <b:append>
-                                        <Button icon circle size="mini"
-                                            ev-click={{ self._addVariable.bind(self, key) }}
-                                        >
-                                            <Icon class="ion-ios-plus-empty" />
-                                        </Button>
-                                        <Button icon circle size="mini"
-                                            ev-click={{ self._removeVariable.bind(self, key) }}
-                                        >
-                                            <Icon class="ion-ios-minus-empty" />
-                                        </Button>
-                                    </b:append>
-                                </FormItem>
-                            </Form>
-                        </CollapseItem>
-                        <CollapseItem title="附加样式" class="code-panel">
-                            <Code v-model="code" height="300px" language="css" /> 
-                        </CollapseItem>
-                    </Collapse>
+                    <Tabs v-model="tab">
+                        <Tab value="global">全局样式</Tab>
+                        <Tab value="component">组件样式</Tab>
+                    </Tabs>
+                    <StylusEditor 
+                        v-model:variables="variables"
+                        v-model:code="code"
+                        availableVariables={{ self.get('availableVariables') }}
+                        key="component"
+                        v-if={{ self.get('tab') === 'component' }}
+                    />
+                    <StylusEditor 
+                        v-model:variables="globalVariables"
+                        v-model:code="globalCode"
+                        availableVariables={{ self.get('globalAvailableVariables') }}
+                        key="global"
+                        v-else
+                    />
                     <div class="footer">
                         <Button type="primary" ev-click={{ self._save }}>保存</Button>
                     </div>

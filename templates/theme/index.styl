@@ -1,2 +1,8 @@
 use('./dirname.js')
-$theme-dir := __dirname()
+if lookup('$theme-dir') 
+    push($theme-dir, __dirname())
+else
+    $theme-dir = __dirname()
+
+@require('../../../node_modules/kpc/styles/mixin.styl')
+@require('./global.variables.styl')

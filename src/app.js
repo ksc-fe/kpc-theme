@@ -1,7 +1,6 @@
 import App from 'kpc/components/app';
 import router from './router';
 import {createBrowserHistory} from 'history';
-// import '@/all.styl';
 
 const history = createBrowserHistory();
 const app = new App({container: document.getElementById('app')});
@@ -12,7 +11,7 @@ function init(router) {
 
     unlisten = history.listen(async ({hash}) => {
         app.showLoading();
-        const {Page, data} = await router.resolve({pathname: hash.substring(1)});
+        const {Page, data} = await router.resolve({pathname: hash.substring(1) || '/'});
         await app.load(Page, data);
     });
     history.replace(location);

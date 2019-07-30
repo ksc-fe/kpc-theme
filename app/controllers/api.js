@@ -8,37 +8,39 @@ const fs = Fs.promises;
 const {Utils} = Advanced;
 
 module.exports = Advanced.Controller.extend({
-    getVariables() {
+    async getVariables() {
         const {component} = this.req.query; 
 
-        this._success({
-            '$btn-color': '$light-black',
-            '$btn-bg-color': '#fff',
-        });
+        const file = component ? 
+            `${Utils.c('kpcStylus')}/${component}/variables.styl` : 
+            Utils.c('kpcGlobalStylusFile');
+        
+        const contents = await fs.readFile(file, 'utf-8');
+        const variables = contents.split('\n').reduce((acc, line) => {
+            if (line[0] === '$') {
+                const [name, value] = line.split(':=');
+                if (name && value) {
+                    acc[name.trim()] = value.trim();
+                }
+            }
+            return acc;
+        }, {});
+
+        this._success(variables);
     },
 
     async save() {
-        const {variables, component, id} = this.req.body;
+        const {variables, code, component, globalVariables, globalCode, id} = this.req.body;
 
         const {path: themePath, id: _id} = await this._initTemplateById(id); 
         const indexFile = `${themePath}/index.styl`;
-        const variablesFilename = `${component}.variables.styl`;
-        const variablesFile = `${themePath}/${variablesFilename}`;
 
-        const variablesContent = variables.reduce((acc, item) => {
-            if (item.name && item.value) {
-                acc.push(`${item.name} := ${item.value}`);
-            }
-            return acc;
-        }, []).join('\n');
-    
-        if (!await fsExtra.pathExists(variablesFile)) {
-            // add @require in index.styl for creating variables file first time
-            await fs.writeFile(indexFile, `\n@require('./${variablesFilename}')`, {flag: 'a'});
-        }
         const [content] = await Promise.all([
             fs.readFile(Utils.c('stylus'), {encoding: 'utf-8'}),
-            fs.writeFile(variablesFile, variablesContent),
+            this._writeVariables(`${component}.variables.styl`, themePath, variables, indexFile),
+            this._writeVariables(`global.variables.styl`, themePath, globalVariables, indexFile),
+            this._writeExtraStylus(`reset.styl`, themePath, globalCode),
+            this._writeExtraStylus(`${component}.styl`, themePath, code),
         ]);
 
         stylus(content, {
@@ -49,6 +51,29 @@ module.exports = Advanced.Controller.extend({
             if (err) return this._error(err);
             this._success({css, id: _id});
         });
+    },
+
+    async _writeVariables(filename, themePath, variables, indexFile) {
+        const file = `${themePath}/${filename}`;
+
+        const contents = variables.reduce((acc, item) => {
+            if (item.name && item.value) {
+                acc.push(`${item.name} := ${item.value}`);
+            }
+            return acc;
+        }, []).join('\n');
+
+        if (!await fsExtra.pathExists(file)) {
+            // add @require in index.styl for creating variables file first time
+            await fs.writeFile(indexFile, `\n@require('./${filename}')`, {flag: 'a'});
+        }
+        await fs.writeFile(file, contents);
+    },
+
+    async _writeExtraStylus(filename, themePath, contents) {
+        if (contents) {
+            await fs.writeFile(`${themePath}/${filename}`, contents);
+        }
     },
 
     async _initTemplateById(id) {

@@ -8,15 +8,15 @@ export default new Router([
             return {Page: (await import('./pages/index')).default}
         },
     },
-    {
-        path: '/components/:name',
-        async action(context) {
-            return {
-                Page: (await import('./pages/index')).default,
-                data: context.params,
-            }
-        }
-    },
+    // {
+        // path: '/components/:name',
+        // async action(context) {
+            // return {
+                // Page: (await import('./pages/index')).default,
+                // data: context.params,
+            // }
+        // }
+    // },
     {
         path: '/opera/:name',
         async action(context) {

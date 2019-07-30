@@ -14,6 +14,9 @@ export default class Index extends Intact {
             lastSize: '500px',
             collapseValue: ['$0', '$1'],
             variables: [{}],
+            globalVariables: [{}],
+            component: 'button',
+            tab: 'component',
         };
     }
 
@@ -25,34 +28,34 @@ export default class Index extends Intact {
         }, {});
         this.set('id', qs.id);
 
-        return this._fetch();
+        this._watch();
+
+        return Promise.all([this._fetchGlobalVariables(), this._fetch()]);
+    }
+
+    _watch() {
+        this.on('$change:component', (c, v) => {
+            this._fetch();
+        });
+    }
+
+    _fetchGlobalVariables() {
+        return api.getVariables().then(res => {
+            this.set('globalAvailableVariables', res.data);
+        });
     }
 
     _fetch() {
-        return api.getVariables({component: this.get('name')}).then(res => {
+        return api.getVariables({component: this.get('component')}).then(res => {
             this.set('availableVariables', res.data);
         });
     }
 
-    _addVariable(index) {
-        const variables = this.get('variables').slice(0);
-        variables.splice(index + 1, 0, {});
-        this.set({variables});
-    }
-
-    _removeVariable(index) {
-        const variables = this.get('variables').slice(0);
-        variables.splice(index, 1);
-        this.set({variables});
-    }
-
     _save() {
+        const {variables, code, component, globalVariables, globalCode, id} = this.get();
         return api.save({
-            variables: this.get('variables'),
-            component: this.get('name'),
-            id: this.get('id'),
+            variables, code, component, globalVariables, globalCode, id,
         }).then(res => {
-            console.log(res.data.css);
             const {id, css} = res.data;
             if (id !== this.get('id')) {
                 history.pushState(null, null, `?id=${id}${location.hash}`);

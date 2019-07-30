@@ -6,4 +6,7 @@ module.exports = {
     template: path.resolve(__dirname, '../templates'),
     stylus: '{template}/theme.styl', 
     stylusTemplate: '{template}/theme',
+
+    kpcStylus: path.resolve(__dirname, '../node_modules/kpc/components'),
+    kpcGlobalStylusFile: path.resolve(__dirname, '../node_modules/kpc/styles/themes/default.styl'),
 }
