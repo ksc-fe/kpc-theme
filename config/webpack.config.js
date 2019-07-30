@@ -59,7 +59,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\/kpc\/.*index\.styl$/,
+                test: /\/kpc\/.*(kpc|index)\.styl$/,
                 include: resolve('../node_modules/kpc/'),
                 use: 'null-loader',
             },

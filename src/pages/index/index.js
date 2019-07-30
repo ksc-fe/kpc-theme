@@ -18,6 +18,13 @@ export default class Index extends Intact {
     }
 
     _init() {
+        const qs = location.search.substring(1).split('&').reduce((acc, item) => {
+            const [key, value] = item.split('=');
+            acc[key] = value;
+            return acc;
+        }, {});
+        this.set('id', qs.id);
+
         return this._fetch();
     }
 
@@ -43,8 +50,17 @@ export default class Index extends Intact {
         return api.save({
             variables: this.get('variables'),
             component: this.get('name'),
+            id: this.get('id'),
         }).then(res => {
-            console.log(res.data);
+            console.log(res.data.css);
+            const {id, css} = res.data;
+            if (id !== this.get('id')) {
+                history.pushState(null, null, `?id=${id}${location.hash}`);
+                this.set('id', id, {silent: true});
+            }
+            // dispatch event for iframe update style
+            const event = new CustomEvent('update:style', {detail: css});
+            window.dispatchEvent(event);
         });
     }
 }

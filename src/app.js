@@ -1,7 +1,7 @@
 import App from 'kpc/components/app';
 import router from './router';
 import {createBrowserHistory} from 'history';
-import '@/all.styl';
+// import '@/all.styl';
 
 const history = createBrowserHistory();
 const app = new App({container: document.getElementById('app')});

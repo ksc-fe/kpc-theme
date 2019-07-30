@@ -26,4 +26,13 @@ export default class Index extends Intact {
             return a.data.order - b.data.order;
         })});
     }
+
+    _mount() {
+        const style = document.createElement('style');
+        document.head.appendChild(style);
+        top.addEventListener('update:style', (e) => {
+            style.textContent = '';
+            style.appendChild(document.createTextNode(e.detail));
+        });
+    }
 }
