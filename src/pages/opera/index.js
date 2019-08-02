@@ -1,8 +1,25 @@
 import Intact from 'intact';
 import template from './index.vdt';
 import './index.styl';
+import {api} from '@/request';
 
 const req = require.context('kpc-demo', true, /^\.\/components\/(?!(code|tabs))\w+\/demos\/.*index\.js$/);
+const style = document.createElement('style');
+document.head.appendChild(style);
+const update = (css) => {
+    const stylesheet = document.getElementById('stylesheet');
+    if (stylesheet) {
+        stylesheet.parentNode.removeChild(stylesheet);
+    }
+    style.textContent = '';
+    style.appendChild(document.createTextNode(css));
+}
+top.addEventListener('update:style', (e) => {
+    update(e.detail);
+});
+api.getCss({id: top.qs.id}).then(res => {
+    update(res.data.css);
+});
 
 export default class Index extends Intact {
     @Intact.template()
@@ -25,14 +42,5 @@ export default class Index extends Intact {
         this.set({Demos: Demos.sort((a, b) => {
             return a.data.order - b.data.order;
         })});
-    }
-
-    _mount() {
-        const style = document.createElement('style');
-        document.head.appendChild(style);
-        top.addEventListener('update:style', (e) => {
-            style.textContent = '';
-            style.appendChild(document.createTextNode(e.detail));
-        });
     }
 }

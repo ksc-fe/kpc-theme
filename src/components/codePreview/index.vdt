@@ -1,0 +1,12 @@
+import {Split } from 'kpc';
+
+const Code = self.Code;
+
+<Split class="code-preview">
+    <b:first>
+        <Code code={{ self.get('variables') }} />
+    </b:first>
+    <b:last>
+        <Code code={{ self.get('code') }} />
+    </b:last>
+</Split>

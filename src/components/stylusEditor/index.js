@@ -1,5 +1,6 @@
 import Intact from 'intact';
 import template from './index.vdt';
+import './index.styl';
 
 export default class StylusEditor extends Intact {
     @Intact.template()
@@ -7,7 +8,7 @@ export default class StylusEditor extends Intact {
 
     defaults() {
         return {
-            collapseValue: ['$0', '$1'],
+            tab: 'variables',
             variables: [{}],
             code: '',
             availableVariables: [],

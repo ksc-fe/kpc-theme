@@ -43,16 +43,12 @@ html
         vertical-align middle
         width 30px
         margin-right 8px
-.k-split 
-    > .k-first
-        overflow hidden
+.main-split
     > .k-last
         background #fff
         padding 16px
         display flex
         flex-direction column 
-        .k-collapse
-            flex 1
         .footer
             text-align right
             padding-top 16px
@@ -60,23 +56,9 @@ html
             margin-top 16px
         .k-tabs
             margin-bottom 16px
-.k-collapse
-    overflow-y auto
-    overflow-x hidden
-.code-panel
-    > .k-content
-        > .k-wrapper
-            padding 0
-.variables-panel
-    .k-form-item
-        > .k-label
-            line-height inherit 
-        > .k-append
-            width 80px
-            .k-btn:first-of-type
-                margin-right 8px
-        &:not(:last-of-type)
-            margin-bottom 8px
+.secondary-split
+    > .k-first
+        overflow hidden
 iframe
     width 100%
     height 100%

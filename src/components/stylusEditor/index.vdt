@@ -5,51 +5,51 @@ import {Select, Option} from 'kpc/components/select';
 import Button from 'kpc/components/button';
 import Icon from 'kpc/components/icon';
 import Code from 'kpc/components/code';
+import {Tabs, Tab} from 'kpc/components/tabs';
 
-<Collapse v-model="collapseValue" noBorder>
-    <CollapseItem title="Stylus 变量" class="variables-panel">
-        <Form labelWidth="200">
-            <FormItem fluid v-for={{ self.get('variables') }}>
-                <b:label>
-                    <Select filterable fluid size="small"
-                        v-model={{ `variables.${key}.name` }}
-                        allowUnmatch
+<div class="stylus-editor">
+    <Tabs size="small" v-model="tab">
+        <Tab value="variables">Stylus变量</Tab>
+        <Tab value="code">附加样式</Tab>
+    </Tabs>
+    <Form labelWidth="200" v-if={{ self.get('tab') === 'variables' }}>
+        <FormItem fluid v-for={{ self.get('variables') }}>
+            <b:label>
+                <Select filterable fluid size="small"
+                    v-model={{ `variables.${key}.name` }}
+                    allowUnmatch
+                >
+                    <Option 
+                        v-for={{ 
+                            _.omit(
+                                self.get('availableVariables'),
+                                _.map(self.get('variables'), item => item.name)
+                            ) 
+                        }}
+                        value={{ key }}
                     >
-                        <Option 
-                            v-for={{ 
-                                _.omit(
-                                    self.get('availableVariables'),
-                                    _.map(self.get('variables'), item => item.name)
-                                ) 
-                            }}
-                            value={{ key }}
-                        >
-                            {{ key }}
-                        </Option>
-                    </Select>
-                </b:label>
-                <Input placeholder={{ self.get('availableVariables')[value.name] }} 
-                    fluid size="small" 
-                    v-model={{ `variables.${key}.value` }}
-                />
-                <b:append>
-                    <Button icon circle size="mini"
-                        ev-click={{ self._addVariable.bind(self, key) }}
-                    >
-                        <Icon class="ion-ios-plus-empty" />
-                    </Button>
-                    <Button icon circle size="mini"
-                        ev-click={{ self._removeVariable.bind(self, key) }}
-                        disabled={{ self.get('variables').length === 1 }}
-                    >
-                        <Icon class="ion-ios-minus-empty" />
-                    </Button>
-                </b:append>
-            </FormItem>
-        </Form>
-    </CollapseItem>
-    <CollapseItem title="附加样式" class="code-panel">
-        <Code v-model="code" height="300px" language="css" /> 
-    </CollapseItem>
-</Collapse>
-
+                        {{ key }}
+                    </Option>
+                </Select>
+            </b:label>
+            <Input placeholder={{ self.get('availableVariables')[value.name] }} 
+                fluid size="small" 
+                v-model={{ `variables.${key}.value` }}
+            />
+            <b:append>
+                <Button icon circle size="mini"
+                    ev-click={{ self._addVariable.bind(self, key) }}
+                >
+                    <Icon class="ion-ios-plus-empty" />
+                </Button>
+                <Button icon circle size="mini"
+                    ev-click={{ self._removeVariable.bind(self, key) }}
+                    disabled={{ self.get('variables').length === 1 }}
+                >
+                    <Icon class="ion-ios-minus-empty" />
+                </Button>
+            </b:append>
+        </FormItem>
+    </Form>
+    <Code v-else v-model="code" height="300px" language="css" /> 
+</div>

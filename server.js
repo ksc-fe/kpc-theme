@@ -32,6 +32,12 @@ const app = Advanced(function(app) {
         // }
     // }));
     // app.use(webpackHotMiddleware(compiler));
+    app.use(Advanced.Express.static(Path.resolve(__dirname, './node_modules/kpc/styles/fonts')));
+    // app.use((req, res, next) => {
+        // Utils.proxy(req, res, next, {
+            // baseUrl: 'http://localhost:5678'
+        // }); 
+    // });
 });
 
 app.listen(Utils.c('port'), function() {

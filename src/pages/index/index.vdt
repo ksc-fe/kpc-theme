@@ -12,6 +12,7 @@ import {Input} from 'kpc/components/input';
 import {Tooltip} from 'kpc/components/tooltip';
 import {Tabs, Tab} from 'kpc/components/tabs';
 import StylusEditor from '@/components/stylusEditor';
+import CodePreview from '@/components/codePreview';
 
 <Layout class="layout">
     <Header fixed>
@@ -36,9 +37,19 @@ import StylusEditor from '@/components/stylusEditor';
             </Menu>
         </Aside>
         <Body>
-            <Split v-model:lastSize="lastSize">
+            <Split v-model:lastSize="lastSize" class="main-split">
                 <b:first>
-                    <iframe src={{ `#/opera/${self.get('component')}` }}></iframe>
+                    <Split mode="vertical" class="secondary-split">
+                        <b:first>
+                            <iframe src={{ `#/opera/${self.get('component')}` }}></iframe>
+                        </b:first>
+                        <b:last>
+                            <CodePreview 
+                                variables={{ self.get('originalVariables') }}
+                                code={{ self.get('originalCode') }}
+                            />
+                        </b:last>
+                    </Split>
                 </b:first>
                 <b:last>
                     <Tabs v-model="tab">

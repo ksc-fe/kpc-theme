@@ -126,10 +126,11 @@ module.exports = {
         port: 5678,
         hot: true,
         proxy: {
-            '/api': 'http://localhost:8586'
+            '/api': 'http://localhost:8586',
+            '**/*.@(ttf|woff)': 'http://localhost:8586',
         }
     },
     watchOptions: {
-        ignored: /node_modules/
+        // ignored: /node_modules/
     }
 }
