@@ -143,13 +143,20 @@ module.exports = Advanced.Controller.extend({
     async _initTemplateById(id) {
         const _id = id;
 
-        if (!id) id = shortId();
+        const isMaterial = id === 'material';
+        const shouldCopy = !id || isMaterial; 
+        if (shouldCopy) id = shortId();
         const path = Utils.c('theme') + '/' + id;
 
-        if (_id && !await fsExtra.pathExists(path)) {
+        if (shouldCopy) {
+            await fsExtra.copy(
+                isMaterial ? 
+                   Utils.c('theme') + '/material' : 
+                   Utils.c('stylusTemplate'),
+                path
+            );
+        } else if (!await fsExtra.pathExists(path)) {
             throw `ID: ${id} does not exist.`;
-        } else if (!_id) {
-            await fsExtra.copy(Utils.c('stylusTemplate'), path);
         }
 
         return {path, id};

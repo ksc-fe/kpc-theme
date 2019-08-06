@@ -33,11 +33,14 @@ export default class Index extends Intact {
         req.keys().forEach(key => {
             if (key.startsWith(`./components/${componentName}/`)) {
                 const Demo = req(key);
-                Demos.push({
-                    Demo: Demo.default,
-                    data: Demo.data.setting,
-                    index: Demo.data.index,
-                });
+                // ignore iframe demo
+                if (Demo.data) {
+                    Demos.push({
+                        Demo: Demo.default,
+                        data: Demo.data.setting,
+                        index: Demo.data.index,
+                    });
+                }
             }
         });
         this.set({Demos: Demos.sort((a, b) => {
