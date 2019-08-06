@@ -109,4 +109,10 @@ export default class Index extends Intact {
     _download() {
         window.open(`/api/download?id=${this.get('id')}`);
     }
+
+    async _helper() {
+        const Dialog = await import('@/components/usage');
+        const dialog = new Dialog.default();
+        dialog.show();
+    }
 }

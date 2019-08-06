@@ -1,0 +1,5 @@
+<pre>
+    <code ref="code" class={{ self.get('language') }}>
+        {{ self.get('code') }}
+    </code>
+</pre>

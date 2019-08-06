@@ -1,6 +1,5 @@
-import {Split } from 'kpc';
-
-const Code = self.Code;
+import {Split} from 'kpc';
+import Code from '../code';
 
 <Split class="code-preview">
     <b:first>
