@@ -1,0 +1,17 @@
+.k-message
+    color #fff
+    > .k-container
+        min-width 288px
+        text-align left
+        position relative
+        > .k-close
+            color #fff
+            position absolute
+            right 7px
+            top 50%
+            margin-top -18px
+            border-radius 50%
+    for type in danger success warning
+        &.k-{type}
+            > .k-container
+                background lookup('$' + type + '-color')

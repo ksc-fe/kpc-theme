@@ -1,0 +1,17 @@
+.k-collapse-item
+    box-shadow 0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12)
+    background #fff
+    transition margin $transition
+    > .k-title
+        font-weight normal
+        font-size 15px
+        padding 0 24px
+        transition all $transition
+    // active
+    &.k-active
+        margin 16px 0
+        > .k-title
+            height 64px
+            padding-top 8px
+        &:first-child
+            margin-top 0

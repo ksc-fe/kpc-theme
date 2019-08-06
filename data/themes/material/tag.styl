@@ -1,0 +1,41 @@
+closeWidth = 20px
+.k-tag
+    border-radius 32px
+    border none
+    background #e0e0e0
+    height 32px
+    line-height 32px
+    .k-close:not(.k-disabled)
+        height closeWidth
+        width closeWidth
+        padding 0
+        border-radius 50%
+        top 50%
+        transform translateY(-50%)
+        right 5px
+        background rgba(0, 0, 0, 0.26)
+        color #fff
+        &:hover
+            background rgba(0, 0, 0, 0.4)
+        .k-icon
+            line-height closeWidth
+    &.k-large
+        height 36px
+        line-height @height
+        .k-close
+            right 8px
+    &.k-small
+        height 24px
+        line-height @height
+        .k-close
+            right 4px
+    &.k-mini
+        height 18px
+        line-height @height
+        .k-close
+            width 14px
+            height 14px
+            right 3px
+            .k-icon
+                line-height 14px
+                font-size 16px

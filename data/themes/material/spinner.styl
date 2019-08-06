@@ -1,0 +1,14 @@
+.k-spinner
+    .k-btn
+        background none
+        box-shadow none
+        border none
+        z-index 2 !important
+    &.k-vertical
+        .k-inner
+            padding-right unit($default-height, px)
+        for size in large small mini
+            &.k-{size}
+                .k-inner
+                    padding-right unit(lookup('$' + size + '-height'), px)
+    

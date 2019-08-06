@@ -1,0 +1,49 @@
+.k-menu
+    padding 8px
+    // collapsed
+    &.k-collapsed
+        .k-icon
+            margin-left 12px
+    // icon
+    .k-icon
+        font-size 24px
+        margin 0 32px 0 0
+        transition margin-left $transition
+    &.k-vertical
+        .k-header
+            padding-bottom 8px
+            box-sizing content-box
+            margin-bottom 8px
+        .k-menu-item:not(:last-child)
+            margin-bottom 4px
+.k-menu-item
+    > .k-title
+        border-radius $border-radius
+        position relative
+        &::before
+            content ''
+            display block
+            position absolute
+            top 0
+            left 0
+            right 0
+            bottom 0
+            pointer-events none
+            background currentColor
+            opacity 0
+            transition opacity $transition
+    &:not(.k-disabled)
+        > .k-title:hover
+            &::before
+                opacity 0.08
+    &.k-active
+        > .k-title::before
+            opacity 0.3
+    
+
+// light
+.k-menu.k-light
+    box-shadow $box-shadow
+    .k-menu-item.k-active
+        > .k-title::before
+            opacity 0

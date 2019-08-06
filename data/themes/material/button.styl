@@ -1,0 +1,85 @@
+types = primary warning danger success
+active-box-shadow = 0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12)
+
+.k-btn
+    text-transform uppercase
+    letter-spacing 0.02857em
+    font-weight 500
+    font-family "Roboto", "Helvetica", "Arial", sans-serif
+    box-shadow $box-shadow
+    // define hover bg color
+    for type in types
+        &.k-{type}:not(.k-disabled)
+            &:hover
+                background-color palette(lookup('$btn-' + type + '-bg-color'), 2)
+            // ghost
+            &.k-ghost
+                &:hover
+                    color lookup('$btn-' + type + '-ghost-color')
+                    border-color palette(@color, 1)
+                    background-color alpha(@border-color, 0.08)
+    &.k-secondary
+        background $btn-secondary-border-color
+    &:hover
+        background #d5d5d5
+    &:active
+        box-shadow active-box-shadow
+    // text button
+    &.k-none:not(.k-disabled)
+    &.k-link:not(.k-disabled)
+        box-shadow none  
+        &:hover
+            background rgba(0, 0, 0, 0.08)   
+    &.k-none:not(.k-btn-icon)
+    &.k-link:not(.k-btn-icon)
+        padding 0 8px  
+    &.k-ghost
+        box-shadow none
+        &.k-default
+            &:hover
+                background-color rgba(0, 0, 0, 0.08)
+            &:active
+                border-color $btn-default-ghost-border-color
+                color $text-color
+    // :disabled
+    &.k-disabled
+        box-shadow none
+    // add rippe effect
+    &:not(.k-disabled)
+        position: relative;
+        overflow: hidden;
+        transform: translate3d(0, 0, 0);
+        &:after
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, currentColor 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .5s, opacity 1s;
+        &:active::after
+            transform: scale(0, 0);
+            opacity: .3;
+            transition: 0s;
+// group
+.k-btns
+    box-shadow $box-shadow
+    border-radius $border-radius
+    .k-btn
+        box-shadow none
+        &:not(.k-disabled):not(.k-none):active
+            box-shadow active-box-shadow
+        // add border for default type
+    &:not(.k-vertical)
+        .k-btn.k-default
+            &:not(:first-child)
+                border-left-color #bdbdbd
+            &:not(:last-child)
+                border-right-color #bdbdbd

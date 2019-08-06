@@ -1,0 +1,101 @@
+.k-steps:not(.k-simple)
+    display flex
+    height auto !important
+    line-height inherit !important
+    overflow visible !important
+    .k-head
+        .k-inner
+            font-size 12px
+            background $steps-main-color
+    // done
+    .k-done
+        .k-inner
+            background $primary-color
+            // use icon
+            span
+                display none
+            &::before
+                font-family Ionicons
+                display inline-block
+                content "\f3fd"
+                font-size 26px
+        .k-title
+            color $text-color
+    .k-wrapper
+        overflow visible !important
+        position relative
+        z-index 1
+    .k-step
+        flex 1
+        width auto !important
+        padding-left 0 !important
+        &:last-of-type
+            flex 0 0 auto
+    .k-main
+        .k-content
+            color $text-color
+    // error
+    .k-step.k-error
+        .k-inner
+            background $danger-color
+            color #fff
+        .k-content
+            color $danger-color
+    &.k-default
+        text-align left
+        align-items center
+        .k-head
+            background #fff
+            .k-inner
+                margin-top 0
+        .k-main
+            vertical-align middle
+            text-align left
+            background #fff
+        .k-title
+        .k-content
+            display block
+        .k-tail
+            left 0
+            right $steps-head-padding-right
+            top 50%
+            margin-top -1px
+            height 1px
+            background $steps-line-tail-bg-color
+            width auto
+    // line
+    &.k-line
+        .k-head
+        .k-main
+            float none
+        .k-main
+            margin-top 16px
+        .k-inner
+            display inline-block
+        .k-wrapper
+            display inline-block
+            text-align center
+        .k-step:last-of-type
+            .k-wrapper
+                display block
+            .k-head::after
+                visibility hidden
+        .k-tail
+            right 0
+        .k-head
+            display flex
+            align-items center
+            padding 0
+            .k-inner
+                margin 0 8px
+            &::before
+            &::after
+                content ''
+                display block
+                flex 1
+                height 1px
+                background $steps-line-tail-bg-color
+        .k-step:first-of-type
+            .k-head::before
+                visibility hidden
+        
