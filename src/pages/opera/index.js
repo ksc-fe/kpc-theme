@@ -3,10 +3,11 @@ import template from './index.vdt';
 import './index.styl';
 import {api} from '@/request';
 
-const req = require.context('kpc-demo', true, /^\.\/components\/(?!(code|tabs))\w+\/demos\/.*index\.js$/);
+const req = require.context('kpc-demo', true, /^\.\/components\/(?!(code))\w+\/demos\/.*index\.js$/);
 const style = document.createElement('style');
 document.head.appendChild(style);
 const update = (css) => {
+    if (!css) return;
     const stylesheet = document.getElementById('stylesheet');
     if (stylesheet) {
         stylesheet.parentNode.removeChild(stylesheet);

@@ -20,6 +20,12 @@ import CodePreview from '@/components/codePreview';
             <img src={{ logo }} />
             KPC主题定制工具
         </div>
+        <div class="download">
+            <Button ghost circle ev-click={{ self._download }} disabled={{ !self.get('id') }}>
+                <Icon size="large" class="ion-ios-cloud-download-outline" />
+                下载主题
+            </Button>
+        </div>
     </Header>
     <Layout>
         <Aside fixed>

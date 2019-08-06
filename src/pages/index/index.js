@@ -3,6 +3,7 @@ import template from './index.vdt';
 import './index.styl';
 import components from '@/data/components';
 import {api} from '@/request';
+import Message from 'kpc/components/message';
 
 window.qs = location.search.substring(1).split('&').reduce((acc, item) => {
     const [key, value] = item.split('=');
@@ -93,6 +94,7 @@ export default class Index extends Intact {
             if (id !== this.get('id')) {
                 history.pushState(null, null, `?id=${id}${location.hash}`);
                 this.set('id', id, {silent: true});
+                Message.success('主题已保存，请记住当前页面URL，以便下次修改');
             }
             this._dispachUpdateStyle(css);
         });
@@ -102,5 +104,9 @@ export default class Index extends Intact {
         // dispatch event for iframe update style
         const event = new CustomEvent('update:style', {detail: css});
         window.dispatchEvent(event);
+    }
+
+    _download() {
+        window.open(`/api/download?id=${this.get('id')}`);
     }
 }

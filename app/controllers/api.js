@@ -4,6 +4,7 @@ const Fs = require('fs');
 const fsExtra = require('fs-extra');
 const shortId = require('shortid');
 const getStylusVariables = require('../utils/getStylusVariables');
+const Archiver = require('archiver');
 
 const fs = Fs.promises;
 const {Utils} = Advanced;
@@ -56,7 +57,7 @@ module.exports = Advanced.Controller.extend({
             this._writeExtraStylus(`${component}.styl`, themePath, code),
         ]);
 
-        await this._compileToCss(id);
+        await this._compileToCss(_id);
     },
 
     async getCss() {
@@ -72,6 +73,31 @@ module.exports = Advanced.Controller.extend({
         ]);
 
         this._success({variables, code});
+    },
+
+    async download() {
+        const {id} = this.req.query;
+        if (!id) return this._error('theme id is required');
+
+        const path = `${Utils.c('theme')}/${id}`;
+        if (!await fsExtra.pathExists(path)) {
+            return this._error('theme id does not exist');
+        }
+
+        this.res.writeHead(200, {
+            'content-type': 'application/tar',
+            'content-disposition': `attachment; filename=${id}.tar`,
+        });
+
+        const tar = Archiver('tar');
+        tar.pipe(this.res);
+        tar.glob(`!(index).*`, {cwd: path})
+            .append(
+                (await fs.readFile(`${path}/index.styl`, 'utf-8'))
+                    .replace('../../../node_modules/', '~'),
+                {name: 'index.styl'}
+            )
+            .finalize();
     },
 
     async _compileToCss(id) {
