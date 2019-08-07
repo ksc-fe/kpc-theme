@@ -57,12 +57,22 @@ module.exports = Advanced.Controller.extend({
             this._writeExtraStylus(`${component}.styl`, themePath, code),
         ]);
 
-        await this._compileToCss(_id);
+        try {
+            const css = await this._compileToCss(_id);
+            this._success({css, id: _id});
+        } catch (e) {
+            this._error(e);
+        }
     },
 
     async getCss() {
         const {id} = this.req.query;
-        await this._compileToCss(id);
+        try {
+            const css = await this._compileToCss(id);
+            this._success({css, id});
+        } catch (e) {
+            this._error(e);
+        }
     },
 
     async getStylusCode() {
@@ -84,12 +94,19 @@ module.exports = Advanced.Controller.extend({
             return this._error('theme id does not exist');
         }
 
+        let css;
+        try { 
+            css = await this._compileToCss(id);
+        } catch (e) {
+            return this._error(e);
+        }
+
         this.res.writeHead(200, {
             'content-type': 'application/tar',
-            'content-disposition': `attachment; filename=${id}.tar`,
+            'content-disposition': `attachment; filename=${id}.tar.gz`,
         });
 
-        const tar = Archiver('tar');
+        const tar = Archiver('tar', {gzip: true});
         tar.pipe(this.res);
         tar.glob(`!(index).*`, {cwd: path})
             .append(
@@ -97,23 +114,26 @@ module.exports = Advanced.Controller.extend({
                     .replace('../../../node_modules/', '~'),
                 {name: 'index.styl'}
             )
+            .append(css, {name: 'index.css'})
             .finalize();
     },
 
     async _compileToCss(id) {
-        if (!id) return this._success({css: '', id});
+        if (!id) return '';
 
         const content = await fs.readFile(Utils.c('stylus'), {encoding: 'utf-8'});
 
-        stylus(content, {
-            filename: Utils.c('stylus'),
-            'include css': true,
-            'resolve url': true,
-        })
-        .import(Utils.c('theme') + '/' + id + '/index.styl')
-        .render((err, css) => {
-            if (err) return this._error(err);
-            this._success({css, id});
+        return await new Promise((resolve, reject) => {
+            stylus(content, {
+                filename: Utils.c('stylus'),
+                'include css': true,
+                'resolve url': true,
+            })
+            .import(Utils.c('theme') + '/' + id + '/index.styl')
+            .render((err, css) => {
+                if (err) return reject(err);
+                resolve(css);
+            });
         });
     },
 

@@ -4,7 +4,7 @@ module.exports = docJson['组件'].reduce((acc, value) => {
     const [, name] = value.path.match(/components\/([^\/]+)/); 
 
     // ignore app
-    if (name === 'app') return acc;
+    if (name === 'app' || name === 'code') return acc;
 
     acc.push({name, title: value.title});
     return acc;
