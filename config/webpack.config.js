@@ -4,9 +4,10 @@ const webpack = require('webpack');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const resolve = (path) => Path.resolve(__dirname, path);
+const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    mode: 'development',
+    mode: isProduction ? 'production' : 'development',
     entry: {
         app: resolve('../src/app.js'),
     },
@@ -15,7 +16,7 @@ module.exports = {
         filename: 'static/js/[name].js',
         chunkFilename: 'static/js/[name].[hash].js',
     },
-    devtool: '#inline-source-map',
+    devtool: isProduction ? false : '#inline-source-map',
     resolve: {
         alias: {
             '@': resolve('../src'),
