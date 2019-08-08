@@ -4,3 +4,4 @@ dist/
 data/themes/*
 !data/themes/material
 .vscode/
+/build*

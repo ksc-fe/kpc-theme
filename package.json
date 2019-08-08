@@ -4,9 +4,12 @@
   "description": "A tool for customizing kpc theme.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --config config/webpack.config.js",
-    "build": "rm ./dist -rf && NODE_ENV=production webpack --config config/webpack.config.js"
+    "build": "rm ./dist -rf && NODE_ENV=production webpack --config config/webpack.config.js",
+    "copy": "rm -rf build && mkdir build && cp -r `ls -A | grep -Ev 'node_modules|build'` ./build",
+    "prune": "cd ./build && yarn install --production --ignore-scripts --prefer-offline",
+    "tar": "rm -f build.tar.gz && tar -C ./build -zcf build.tar.gz ./ --exclude=.git",
+    "deploy": "npm run build && npm run copy && npm run prune && npm run tar"
   },
   "keywords": [
     "kpc",
@@ -23,7 +26,7 @@
     "highlight.js": "^9.15.9",
     "history": "^4.9.0",
     "kpc": "^1.0.1",
-    "kpc-demo": "git+https://github.com/ksc-fe/kpc.git#gh-pages",
+    "kpc-demo": "git+https://github.com/ksc-fe/kpc.git#3f048e6",
     "lodash": "^4.17.15",
     "shortid": "^2.2.14",
     "universal-router": "^8.2.1",
