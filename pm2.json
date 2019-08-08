@@ -1,0 +1,15 @@
+{
+    "apps": [
+        {
+            "name": "kpc-theme",
+            "script": "./server.js",
+            "env": {
+                "NODE_ENV": "production"
+            },
+            "instances": 4,
+            "max_memory_restart": "1G",
+            "interpreter": "/data/tools/node-v10.16.2-linux-x64/bin/node",
+            "exec_mode": "cluster"
+        }
+    ]
+}
