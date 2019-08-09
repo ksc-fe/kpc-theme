@@ -9,4 +9,6 @@ module.exports = {
 
     kpcStylus: path.resolve(__dirname, '../node_modules/kpc/components'),
     kpcGlobalStylusFile: path.resolve(__dirname, '../node_modules/kpc/styles/themes/default.styl'),
+
+    env: process.env.NODE_ENV === 'production' ? 'production' : 'development',
 }

@@ -13,7 +13,7 @@ module.exports = {
     },
     output: {
         path: resolve('../dist'),
-        filename: 'static/js/[name].js',
+        filename: 'static/js/[name].[hash].js',
         chunkFilename: 'static/js/[name].[hash].js',
     },
     devtool: isProduction ? false : '#inline-source-map',
