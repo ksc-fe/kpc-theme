@@ -3140,10 +3140,10 @@ intact-vue@^0.4.20:
   resolved "https://registry.yarnpkg.com/intact-vue/-/intact-vue-0.4.20.tgz#1045a4526f73604c86e0edc2c56f1be832b7c95f"
   integrity sha512-xahIFsrK36JNynWjLogcgj5D44T0xlbhT8ZpUrqHIi99b4uLaB1xYWT5xesRaYp8W+xH4ff6ga73JdgCRLyZBg==
 
-intact@^2.5.4:
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/intact/-/intact-2.5.4.tgz#1ea0d59dde5615aad108c6bc5dfc70eb1df9efa2"
-  integrity sha512-U9Neq9/a1BMRjko1SmeMY43FyfakjaDIcjNvrPfHKtuRmi9FbSxBn3gcVpHavWPUC9rzpjISZ3b837puDdlT+w==
+intact@^2.5.5:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/intact/-/intact-2.5.5.tgz#2bb982ff2979b817e4b79fb55530dd5f0025d9e9"
+  integrity sha512-Yrfh8S19pfNIAduVlcCXYO2v7rKgxHu6Wuoo09tDjVacpx04rqctDhxeDAshvUZfKVEJIK44piivUoQJRCeDGQ==
 
 internal-ip@^4.3.0:
   version "4.3.0"
@@ -3538,15 +3538,15 @@ klaw@^1.0.0:
   version "0.0.0"
   resolved "git+https://github.com/ksc-fe/kpc.git#3f048e65c9a4b1ed164868901e00d41e50093a14"
 
-kpc@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/kpc/-/kpc-1.0.1.tgz#beabe67619e6ec1a2a9dbb8917d7c5bcb6739be2"
-  integrity sha512-ln00E98JtBdOrr1N11xK7Mta7GKUzuU5aDfMz++K34dzpj5Xejwwhi3RiBAOqSf+vKqP9ln1U0mPj77TpBi/UQ==
+kpc@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/kpc/-/kpc-1.0.2.tgz#8d37a25410b8d22d9ef450d8ab47af11c726f235"
+  integrity sha512-/+RGZKWFOv3jtCvynYx3f/uhUS23SAHAqUBBCIsy612yUbLAAu8g2ntFeRspJiKCH2uUBHv+VQ14Ezxfb3S8nA==
   dependencies:
     "@babel/runtime-corejs2" "^7.2.0"
     downloadjs "^1.4.7"
     enquire.js "^2.1.6"
-    intact "^2.5.4"
+    intact "^2.5.5"
     intact-react "^1.1.18"
     intact-vue "^0.4.20"
     monaco-editor "^0.17.0"

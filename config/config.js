@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+    root: path.resolve(__dirname, '../'),
     data: path.resolve(__dirname, '../data'),
     theme: '{data}/themes',
     template: path.resolve(__dirname, '../templates'),

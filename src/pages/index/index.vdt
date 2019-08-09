@@ -21,6 +21,7 @@ import CodePreview from '@/components/codePreview';
             KPC主题定制工具
         </div>
         <div class="download">
+            <Button ghost type="link" href="?id=material">Material-UI Theme</Button>
             <Button ghost type="none" ev-click={{ self._helper }}>帮助</Button>
             <Button ghost circle ev-click={{ self._download }} disabled={{ !self.get('id') }}>
                 <Icon size="large" class="ion-ios-cloud-download-outline" />

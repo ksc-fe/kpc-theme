@@ -123,7 +123,7 @@ module.exports = Advanced.Controller.extend({
 
         const content = await fs.readFile(Utils.c('stylus'), {encoding: 'utf-8'});
 
-        return await new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             stylus(content, {
                 filename: Utils.c('stylus'),
                 'include css': true,
@@ -131,7 +131,10 @@ module.exports = Advanced.Controller.extend({
             })
             .import(Utils.c('theme') + '/' + id + '/index.styl')
             .render((err, css) => {
-                if (err) return reject(err);
+                if (err) {
+                    err = new Error(err.message.replace(new RegExp(Utils.c('root'), 'g'), ''));
+                    return reject(err);
+                }
                 resolve(css);
             });
         });
@@ -192,7 +195,7 @@ module.exports = Advanced.Controller.extend({
     _error(data) {
         this.res.status(500).json({
             status: 1,
-            data
+            message: data instanceof Error ? data.message : data
         });
         throw data;
     },

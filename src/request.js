@@ -1,6 +1,7 @@
 import axios from 'axios';
 import _ from 'lodash';
 import Message from 'kpc/components/message';
+import Intact from 'intact';
 
 function request(url, method = 'get', dataGet = null, dataPost = null) {
     return new Promise((resolve, reject) => {
@@ -17,7 +18,8 @@ function request(url, method = 'get', dataGet = null, dataPost = null) {
                 resolve(data);
             }
         }, err => {
-            Message.error(err.message);
+            const message = `<pre style="text-align: left; margin: 0;">${err.response.data.message}</pre>`;
+            Message.error(message);
             reject(err);
         });
     })
