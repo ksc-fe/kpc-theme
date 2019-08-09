@@ -13,6 +13,7 @@ import {Tooltip} from 'kpc/components/tooltip';
 import {Tabs, Tab} from 'kpc/components/tabs';
 import StylusEditor from '@/components/stylusEditor';
 import CodePreview from '@/components/codePreview';
+import Badge from 'kpc/components/badge';
 
 <Layout class="layout">
     <Header fixed>
@@ -21,7 +22,9 @@ import CodePreview from '@/components/codePreview';
             KPC主题定制工具
         </div>
         <div class="download">
-            <Button ghost type="link" href="?id=material">Material-UI Theme</Button>
+            <Badge text="Beta">
+                <Button ghost type="link" href="?id=material">Material-UI Theme</Button>
+            </Badge>
             <Button ghost type="none" ev-click={{ self._helper }}>帮助</Button>
             <Button ghost circle ev-click={{ self._download }} disabled={{ !self.get('id') }}>
                 <Icon size="large" class="ion-ios-cloud-download-outline" />
