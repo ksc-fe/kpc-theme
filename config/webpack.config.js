@@ -15,6 +15,7 @@ module.exports = {
         path: resolve('../dist'),
         filename: 'static/js/[name].[hash].js',
         chunkFilename: 'static/js/[name].[hash].js',
+        publicPath: isProduction ? '//damife.ks3-cn-beijing.ksyun.com/kpc/' : '/',
     },
     devtool: isProduction ? false : '#inline-source-map',
     resolve: {
@@ -117,7 +118,9 @@ module.exports = {
     plugins: [
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new MonacoWebpackPlugin(),
+        new MonacoWebpackPlugin({
+            languages: ['css'],
+        }),
         new HtmlWebpackPlugin({
             inject: true,
             template: resolve('../public/index.html'),
