@@ -19,6 +19,7 @@ export default class Index extends Intact {
         return {
             components,
             lastSize: '500px',
+            previewSize: '0px',
             variables: [{}],
             code: '',
             globalVariables: [{}],

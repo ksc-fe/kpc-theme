@@ -50,7 +50,7 @@ import Badge from 'kpc/components/badge';
         <Body>
             <Split v-model:lastSize="lastSize" class="main-split">
                 <b:first>
-                    <Split mode="vertical" class="secondary-split">
+                    <Split mode="vertical" class="secondary-split" v-model:lastSize="previewSize">
                         <b:first>
                             <iframe src={{ `#/opera/${self.get('component')}` }}></iframe>
                         </b:first>
