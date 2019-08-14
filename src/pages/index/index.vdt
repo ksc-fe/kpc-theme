@@ -17,10 +17,10 @@ import Badge from 'kpc/components/badge';
 
 <Layout class="layout">
     <Header fixed>
-        <div class="logo">
+        <a class="logo" href="/">
             <img src={{ logo }} />
             KPC主题定制工具
-        </div>
+        </a>
         <div class="download">
             <Badge text="Beta">
                 <Button ghost type="link" href="?id=material">Material-UI Theme</Button>

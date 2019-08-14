@@ -95,6 +95,7 @@ export default class Index extends Intact {
             if (id !== this.get('id')) {
                 history.pushState(null, null, `?id=${id}${location.hash}`);
                 this.set('id', id, {silent: true});
+                window.qs = {...window.qs, id};
                 Message.success('主题已保存，请记住当前页面URL，以便下次修改');
             }
             this._dispachUpdateStyle(css);
