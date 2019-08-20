@@ -60,6 +60,9 @@ import Badge from 'kpc/components/badge';
                                 code={{ self.get('originalCode') }}
                             />
                         </b:last>
+                        <b:drag>
+                            <div>向上拖动查看stylus源码</div>
+                        </b:drag>
                     </Split>
                 </b:first>
                 <b:last>
