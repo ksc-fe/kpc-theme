@@ -2016,6 +2016,11 @@ date-now@^0.1.4:
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
   integrity sha1-6vQ5/U1ISK105cx9vvIAZyueNFs=
 
+dayjs@^1.8.15:
+  version "1.8.15"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.15.tgz#7121bc04e6a7f2621ed6db566be4a8aaf8c3913e"
+  integrity sha512-HYHCI1nohG52B45vCQg8Re3hNDZbMroWPkhz50yaX7Lu0ATyjGsTdoYZBpjED9ar6chqTx2dmSmM8A51mojnAg==
+
 debug@*, debug@4, debug@^4.1.0, debug@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
@@ -3729,16 +3734,17 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
-"kpc-demo@git+https://github.com/ksc-fe/kpc.git#3f048e6":
+"kpc-demo@git+https://github.com/ksc-fe/kpc.git#58552332":
   version "0.0.0"
-  resolved "git+https://github.com/ksc-fe/kpc.git#3f048e65c9a4b1ed164868901e00d41e50093a14"
+  resolved "git+https://github.com/ksc-fe/kpc.git#58552332bad32c9b6e160eb2cf8658ee6edcebea"
 
-kpc@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/kpc/-/kpc-1.0.2.tgz#8d37a25410b8d22d9ef450d8ab47af11c726f235"
-  integrity sha512-/+RGZKWFOv3jtCvynYx3f/uhUS23SAHAqUBBCIsy612yUbLAAu8g2ntFeRspJiKCH2uUBHv+VQ14Ezxfb3S8nA==
+kpc@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/kpc/-/kpc-1.1.1.tgz#507d5882c42bfc107dd367cd365e5302442b01b5"
+  integrity sha512-1OSBaj/DyGdoT4kN6OJ00X9wFYpM1xgptuGAoWy276ySHxciJP55Izw+NbElGIk6LFl0efmHdSlc5a0tA4sKPg==
   dependencies:
     "@babel/runtime-corejs2" "^7.2.0"
+    dayjs "^1.8.15"
     downloadjs "^1.4.7"
     enquire.js "^2.1.6"
     intact "^2.5.5"
