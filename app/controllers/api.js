@@ -9,9 +9,13 @@ const Archiver = require('archiver');
 const fs = Fs.promises;
 const {Utils} = Advanced;
 
+const inputRegExp = /^[a-zA-Z0-9\-\_]*$/;
+
 module.exports = Advanced.Controller.extend({
     async getVariables() {
         const {component} = this.req.query; 
+
+        this._validate(component);
 
         const file = component ? 
             `${Utils.c('kpcStylus')}/${component}/variables.styl` : 
@@ -24,6 +28,8 @@ module.exports = Advanced.Controller.extend({
 
     async getStylus() {
         const {id, component} = this.req.query;
+
+        this._validate(id, component);
 
         const path = Utils.c('theme') + '/' + id;
         const variablesFile = component ? 
@@ -47,6 +53,8 @@ module.exports = Advanced.Controller.extend({
     async save() {
         const {variables, code, component, globalVariables, globalCode, id} = this.req.body;
 
+        this._validate(id, component);
+
         const {path: themePath, id: _id} = await this._initTemplateById(id); 
         const indexFile = `${themePath}/index.styl`;
 
@@ -67,6 +75,9 @@ module.exports = Advanced.Controller.extend({
 
     async getCss() {
         const {id} = this.req.query;
+
+        this._validate(id);
+
         try {
             const css = await this._compileToCss(id);
             this._success({css, id});
@@ -77,6 +88,9 @@ module.exports = Advanced.Controller.extend({
 
     async getStylusCode() {
         const {component} = this.req.query; 
+        
+        this._validate(component);
+
         const [variables, code] = await Promise.all([
             fs.readFile(Utils.c('kpcStylus') + `/${component}/variables.styl`, 'utf-8'),
             fs.readFile(Utils.c('kpcStylus') + `/${component}/index.styl`, 'utf-8'),
@@ -88,6 +102,8 @@ module.exports = Advanced.Controller.extend({
     async download() {
         const {id} = this.req.query;
         if (!id) return this._error('theme id is required');
+
+        this._validate(id);
 
         const path = `${Utils.c('theme')}/${id}`;
         if (!await fsExtra.pathExists(path)) {
@@ -199,4 +215,12 @@ module.exports = Advanced.Controller.extend({
         });
         throw data;
     },
+
+    _validate(...args) {
+        for (let i = 0; i < args.length; i++) {
+            if (args[i] && !inputRegExp.test(args[i])) {
+                return this._error('invalid parameter');
+            }
+        }
+    }
 });
